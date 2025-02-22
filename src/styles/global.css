@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+.paragraph .mask {
+  margin: -0.14em 0;
+  overflow: hidden;
+  padding: 0.14em 0;
+  display: inline-block;
+}
+
+.paragraph .mask .line {
+  display: block;
+  transform: translate(0, 105%);
+}
+
+.paragraph .word {
+  display: inline-block;
+  /* transform: translate(calc(100vw - 25px), 0); */
+}
+
+button .word {
+  display: inline-block;
+  text-shadow: 0 -18px #fff;
+}

@@ -1,0 +1,21 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"a"> {}
+
+const { class: classes, ...attrs } = Astro.props;
+---
+
+<a
+  data-controller="button"
+  data-action="mouseenter->button#hover"
+  class="h-10 min-w-20 cursor-pointer bg-black px-3 text-white"
+  {...attrs}
+>
+  <span
+    class="pointer-events-none block overflow-hidden leading-tight"
+    data-button-target="text"
+  >
+    <slot />
+  </span>
+</a>
