@@ -1,0 +1,64 @@
+---
+import Button from "./ui/button.astro";
+import Work from "./ui/work.astro";
+
+import homefront from "../assets/homefront.png";
+import wallpaper from "../assets/wallpaper-light.png";
+
+const works = [
+  {
+    name: "Homefront Property Management",
+    src: homefront,
+    href: "/projects/homefront",
+    background: "--color-blue-100",
+  },
+  {
+    name: "Wallpaper",
+    src: wallpaper,
+    href: "",
+    background: "--color-zinc-200",
+  },
+];
+---
+
+<section class="w-full">
+  <div class="p-4 py-12 sm:p-6 lg:grid lg:p-12">
+    <div class="flex items-center justify-between">
+      <h2 class="text-2xl">Recent works</h2>
+      <div>
+        <Button>All works</Button>
+      </div>
+    </div>
+    <div class="mt-12 grid grid-cols-2 gap-4">
+      {works.map((work) => <Work {...work} />)}
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function init() {
+    const works = document.querySelectorAll<HTMLDivElement>(".work");
+
+    works.forEach((work) => {
+      gsap.to(work, {
+        y: "0%",
+        opacity: 1,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: work,
+          start: "top bottom-=10%",
+        },
+      });
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    init();
+  });
+</script>

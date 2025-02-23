@@ -13,10 +13,6 @@ export default class extends Controller {
     this.words = wrapWordsInSpan(this.textTarget);
   }
 
-  alert() {
-    alert("Hello world");
-  }
-
   hover() {
     if (this.animating) return;
     this.animating = true;
@@ -27,10 +23,10 @@ export default class extends Controller {
         },
       })
       .to(this.words, {
-        yPercent: 90,
-        duration: 0.8,
+        yPercent: 100,
+        duration: 1,
         ease: "elastic.out(1, 0.6)",
-        stagger: 0.1,
+        stagger: 0.08,
       })
       .set(this.words, {
         yPercent: 0,

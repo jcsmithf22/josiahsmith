@@ -1,23 +1,60 @@
 @import "tailwindcss";
 
-.paragraph .mask {
-  margin: -0.14em 0;
-  overflow: hidden;
-  padding: 0.14em 0;
-  display: inline-block;
+html.lenis,
+html.lenis body {
+  height: auto;
 }
 
-.paragraph .mask .line {
-  display: block;
-  transform: translate(0, 105%);
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
 }
 
-.paragraph .word {
-  display: inline-block;
-  /* transform: translate(calc(100vw - 25px), 0); */
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+.effect-001 {
+  .paragraph .mask {
+    margin: -0.14em 0;
+    overflow: hidden;
+    padding: 0.14em 0;
+    display: inline-block;
+  }
+
+  .paragraph .mask .line {
+    display: block;
+    transform: translate(0, 105%);
+  }
+
+  .paragraph .word {
+    display: inline-block;
+    /* transform: translate(calc(100vw - 25px), 0); */
+  }
+}
+
+.effect-002 {
+  .word {
+    display: inline-block;
+    transform: translate(calc(100vw - 8px), 0);
+
+    @media (width >= 48rem /* 768px */) {
+      transform: translate(calc(100vw - 528px), 0);
+    }
+  }
 }
 
 button .word {
+  font-size: inherit;
   display: inline-block;
-  text-shadow: 0 -18px #fff;
+  text-shadow: 0 -17px #fff;
+}
+
+a .word {
+  font-size: inherit;
+  display: inline-block;
+  text-shadow: 0 -17px var(--color-zinc-900);
 }

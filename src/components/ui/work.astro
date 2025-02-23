@@ -1,0 +1,55 @@
+---
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+
+interface Props {
+  href: string;
+  name: string;
+  src: ImageMetadata;
+  background: string;
+}
+
+const { href, name, src, background } = Astro.props;
+---
+
+<div
+  data-controller="works"
+  data-action="mouseenter->works#enter mouseleave->works#leave mousemove->works#move"
+  class="work relative aspect-4/3 w-full translate-y-20 opacity-0"
+>
+  <div
+    data-works-target="content"
+    class="relative size-full"
+    style={`background: var(${background})`}
+  >
+    <div
+      class="absolute inset-x-0 top-0 flex justify-between p-6 text-sm text-zinc-600 uppercase"
+      data-works-target="info"
+    >
+      <p>{name}</p>
+      <a class="inline-flex items-center gap-2" href={href}>
+        View details
+        <Icon name="lucide:arrow-right" class="size-4" />
+      </a>
+    </div>
+    <div
+      class="flex h-full flex-col items-center justify-end pt-20"
+      onclick={`window.location.href='${href}';`}
+    >
+      <Image src={src} class="h-full w-auto object-cover" alt="" />
+    </div>
+  </div>
+  <div
+    class="pointer-events-none absolute top-1/2 left-1/2"
+    style="transform: translate(-50%, -50%);"
+  >
+    <div
+      class="flex size-40 scale-0 items-center justify-center overflow-hidden rounded-full bg-black/60 text-white shadow-lg backdrop-blur-md"
+      data-works-target="overlay"
+    >
+      <span class="block font-mono text-sm text-nowrap opacity-90"
+        >View details • View details • View details • View details •</span
+      >
+    </div>
+  </div>
+</div>

@@ -1,13 +1,35 @@
+---
+import Link from "./link.astro";
+import Button from "./button.astro";
+---
+
 <navbar class="fixed inset-x-0 top-0 z-100">
   <div
-    class="h-20 bg-transparent px-4 backdrop-blur-md sm:px-6 lg:px-12"
-    style="mask: linear-gradient(rgb(0, 0, 0) 60%, rgba(0, 0, 0, 0) 100%);"
+    class="relative flex h-20 items-center justify-between bg-transparent px-4 sm:px-6 lg:px-12"
   >
+    <div
+      class="background absolute inset-0 -z-10 backdrop-blur-md"
+      style="mask: linear-gradient(rgb(0, 0, 0) 60%, rgba(0, 0, 0, 0) 100%);"
+    >
+    </div>
     <div class="flex h-full items-center gap-x-16 text-sm">
-      <a href="">Josiah Smith</a>
-      <a href="">Works</a>
-      <a href="">About</a>
-      <a href="">Blog</a>
+      <Link href="">Josiah Smith</Link>
+      <Link href="">Works</Link>
+      <Link href="">About</Link>
+      <Link href="">Blog</Link>
+    </div>
+    <div>
+      <Button>Reach out</Button>
     </div>
   </div>
 </navbar>
+
+<style>
+  .background {
+    background-image: radial-gradient(
+      transparent 1px,
+      var(--color-zinc-50) 1px
+    );
+    background-size: 4px 4px;
+  }
+</style>

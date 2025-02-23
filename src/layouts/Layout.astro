@@ -13,8 +13,33 @@ import "../styles/global.css";
     <title>Astro Basics</title>
     <script src="../js/index.ts"></script>
   </head>
-  <body class="bg-zinc-50">
+  <body class="bg-zinc-50 text-zinc-800">
     <Navigation />
     <slot />
+    <div class="overlay pointer-events-none fixed inset-0 z-1000"></div>
   </body>
 </html>
+
+<style>
+  .overlay {
+    background-size: 109px;
+    background-image: url("https://framerusercontent.com/images/rR6HYXBrMmX4cRpXfXUOvpvpB0.png");
+    opacity: 0.06;
+  }
+</style>
+
+<script>
+  import Lenis from "lenis";
+
+  function init() {
+    /* LENIS SMOOTH SCROLL (OPTIONAL) */
+    new Lenis({
+      autoRaf: true,
+    });
+    /* LINIS SMOOTH SCROLL (OPTIONAL) */
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    init();
+  });
+</script>

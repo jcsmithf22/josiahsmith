@@ -1,19 +1,25 @@
 ---
-import Button from "../components/ui/button.astro";
+import { Image } from "astro:assets";
+
+import me from "../assets/no_eyebags.png";
 ---
 
-<section class="h-screen w-full">
+<section class="effect-001 min-h-screen w-full">
   <div
-    class="flex h-full grid-cols-3 flex-col justify-between p-4 pt-24 pb-12 sm:p-6 lg:grid lg:p-12 lg:pt-24"
+    class="flex min-h-screen grid-cols-3 flex-col justify-between p-4 pt-24 pb-12 sm:p-6 lg:grid lg:p-12 lg:pt-24"
   >
     <div class="flex flex-col justify-between">
       <div class="flex gap-x-4">
-        <div class="aspect-4/5 w-36 shrink-0 bg-zinc-200"></div>
+        <Image
+          src={me}
+          alt=""
+          class="aspect-4/5 w-36 shrink-0 bg-zinc-200 object-cover object-top"
+          loading="eager"
+        />
         <div class="flex max-w-48 flex-col justify-end">
           <p class="text-xs text-zinc-400">Based in Sheboygan Falls, WI</p>
-          <p class="mt-1 text-xs">
-            Dynamic, results-focused Multidisciplinary Designer & Art Director
-            with over 6 years of experience.
+          <p class="mt-1 text-sm">
+            Research and Development Engineer at Curt G. Joa.
           </p>
         </div>
       </div>
@@ -23,26 +29,19 @@ import Button from "../components/ui/button.astro";
       </div>
     </div>
     <div class="col-span-2 flex flex-col justify-end">
-      <p
-        class="paragraph text-4xl/9 font-light tracking-wide opacity-0 sm:text-5xl/11 md:text-5xl/12 lg:text-4xl/9 xl:text-6xl/14"
+      <h1
+        class="paragraph text-4xl/9 font-light tracking-wide text-black opacity-0 sm:text-5xl/11 md:text-5xl/12 lg:text-4xl/9 xl:text-6xl/14"
       >
-        Hey there! I'm a Multidisciplinary Designer & Art Director with over 6
-        years of extensive experience. Expert in blending skills across UI/UX
-        design, graphic design, motion and brand development to deliver cohesive
-        and innovative design solutions.
-      </p>
+        Hey there! I'm a Research and Development Engineer at Curt G. Joa in
+        Sheboygan Falls, Wisconsin. Proficient in programming and mechanical
+        design. Experienced in machine learning, machine automation, web
+        development and data science.
+      </h1>
     </div>
   </div>
 </section>
 
-<section class="h-screen">
-  <div class="pt-50">
-    <p>Hi</p>
-  </div>
-</section>
-
 <script>
-  import Lenis from "lenis";
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
   import { wrapLinesInSpan } from "../js/lib/utils";
@@ -50,44 +49,33 @@ import Button from "../components/ui/button.astro";
   gsap.registerPlugin(ScrollTrigger);
 
   function init() {
-    /* LENIS SMOOTH SCROLL (OPTIONAL) */
-    new Lenis({
-      autoRaf: true,
-    });
-    /* LINIS SMOOTH SCROLL (OPTIONAL) */
+    const paragraph = document.querySelector<HTMLParagraphElement>(
+      ".effect-001 .paragraph",
+    )!;
 
-    const paragraph =
-      document.querySelector<HTMLParagraphElement>(".paragraph");
-
-    if (!paragraph) return;
-
-    const lines = wrapLinesInSpan(paragraph);
+    const { lines } = wrapLinesInSpan(paragraph);
 
     gsap.set(paragraph, {
       opacity: 1,
     });
 
     gsap.to(lines, {
-      y: "0%", // Appearance of words from paragraphs[index+1]
+      y: "0%",
       duration: 0.5,
       stagger: 0.1,
       ease: "power3.out",
     });
 
-    // lines.forEach((lineWords) => {
-    //   gsap.to(lineWords, {
-    //     x: 0, // Animate the 'x' property to 0
-    //     delay: Math.random(),
-    //     stagger: 0.2, // Stagger the animation of each element by 0.2
-    //     ease: "power1.inOut",
-    //     // scrollTrigger: {
-    //     //   trigger: ".mwg_effect004", // Element that triggers the animation
-    //     //   start: "top top", // Start the animation when the top of the trigger hits the top of the viewport
-    //     //   end: "bottom bottom", // End the animation when the bottom of the trigger hits the bottom of the viewport
-    //     //   scrub: true, // Scrub the animation based on scroll position
-    //     // },
-    //   });
-    // });
+    gsap.to(lines, {
+      yPercent: -150,
+      stagger: 0.1,
+      scrollTrigger: {
+        trigger: paragraph,
+        start: "clamp(top 25%)",
+        end: "bottom 25%",
+        scrub: 1,
+      },
+    });
   }
 
   document.addEventListener("DOMContentLoaded", () => {

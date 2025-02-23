@@ -12,9 +12,12 @@ export function wrapWordsInSpan(element: HTMLElement): Array<HTMLSpanElement> {
   return [...element.querySelectorAll<HTMLSpanElement>(".word")];
 }
 
-export function wrapLinesInSpan(element: HTMLElement): Array<HTMLSpanElement> {
-  const words = wrapWordsInSpan(element)!;
+interface LineReturnType {
+  lines: Array<HTMLSpanElement>;
+  words: Array<HTMLSpanElement>;
+}
 
+export function wordsPerLine(words: Array<HTMLSpanElement>) {
   // We will have an array of lines that contain an array of words
   const lines: Array<Array<HTMLSpanElement>> = [[]];
   let lineIndex = 0;
@@ -35,7 +38,13 @@ export function wrapLinesInSpan(element: HTMLElement): Array<HTMLSpanElement> {
     lines[lineIndex].push(word);
   }
 
-  element.innerHTML = lines
+  return lines;
+}
+
+export function wrapLinesInSpan(element: HTMLElement): LineReturnType {
+  const words = wrapWordsInSpan(element)!;
+
+  element.innerHTML = wordsPerLine(words)
     .map(
       (lineWords) =>
         `<span class="mask"><span class="line">${lineWords
@@ -44,5 +53,10 @@ export function wrapLinesInSpan(element: HTMLElement): Array<HTMLSpanElement> {
     )
     .join("");
 
-  return [...element.querySelectorAll<HTMLSpanElement>(".line")];
+  const lines = [...element.querySelectorAll<HTMLSpanElement>(".line")];
+
+  return {
+    lines,
+    words,
+  };
 }
