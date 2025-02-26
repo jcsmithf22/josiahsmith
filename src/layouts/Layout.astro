@@ -23,20 +23,33 @@ import "../styles/global.css";
 <style>
   .overlay {
     background-size: 109px;
-    background-image: url("https://framerusercontent.com/images/rR6HYXBrMmX4cRpXfXUOvpvpB0.png");
+    background-image: url("../assets/noise.png");
     opacity: 0.06;
   }
 </style>
 
 <script>
   import Lenis from "lenis";
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
 
   function init() {
-    /* LENIS SMOOTH SCROLL (OPTIONAL) */
-    new Lenis({
-      autoRaf: true,
+    // Initialize a new Lenis instance for smooth scrolling
+    const lenis = new Lenis();
+
+    // Synchronize Lenis scrolling with GSAP's ScrollTrigger plugin
+    lenis.on("scroll", ScrollTrigger.update);
+
+    // Add Lenis's requestAnimationFrame (raf) method to GSAP's ticker
+    // This ensures Lenis's smooth scroll animation updates on each GSAP tick
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000); // Convert time from seconds to milliseconds
     });
-    /* LINIS SMOOTH SCROLL (OPTIONAL) */
+
+    // Disable lag smoothing in GSAP to prevent any delay in scroll animations
+    gsap.ticker.lagSmoothing(0);
   }
 
   document.addEventListener("DOMContentLoaded", () => {

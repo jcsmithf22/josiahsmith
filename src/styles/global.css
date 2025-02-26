@@ -18,6 +18,8 @@ html.lenis body {
 }
 
 .effect-001 {
+  font-kerning: none;
+
   .paragraph .mask {
     margin: -0.14em 0;
     overflow: hidden;
@@ -37,12 +39,18 @@ html.lenis body {
 }
 
 .effect-002 {
+  font-kerning: none;
+
   .word {
     display: inline-block;
-    transform: translate(calc(100vw - 8px), 0);
+    transform: translate(calc(100vw - 16px), 0);
 
     @media (width >= 48rem /* 768px */) {
-      transform: translate(calc(100vw - 528px), 0);
+      transform: translate(calc(100vw - 312px), 0);
+    }
+
+    @media (width >= 64rem /* 768px */) {
+      transform: translate(calc(100vw - 512px), 0);
     }
   }
 }
