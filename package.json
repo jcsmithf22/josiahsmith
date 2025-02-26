@@ -24,6 +24,7 @@
   "devDependencies": {
     "@iconify-json/lucide": "^1.2.26",
     "prettier-plugin-astro": "^0.14.1",
-    "prettier-plugin-tailwindcss": "^0.6.11"
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "sharp": "^0.33.5"
   }
 }
