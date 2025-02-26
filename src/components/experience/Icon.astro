@@ -1,0 +1,15 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+  src: ImageMetadata;
+}
+
+const { src } = Astro.props;
+---
+
+<Image
+  class="aspect-square w-[92px] translate-y-full rounded-xl border border-black/15 bg-white object-contain"
+  src={src}
+  alt=""
+/>

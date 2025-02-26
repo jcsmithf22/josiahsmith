@@ -8,6 +8,15 @@ importers:
 
   .:
     dependencies:
+      '@fontsource-variable/inter':
+        specifier: ^5.1.1
+        version: 5.1.1
+      '@fontsource-variable/red-hat-text':
+        specifier: ^5.1.1
+        version: 5.1.1
+      '@fontsource/manrope':
+        specifier: ^5.1.1
+        version: 5.1.1
       '@hotwired/stimulus':
         specifier: ^3.2.2
         version: 3.2.2
@@ -234,6 +243,15 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@fontsource-variable/inter@5.1.1':
+    resolution: {integrity: sha512-OpXFTmiH6tHkYijMvQTycFKBLK4X+SRV6tet1m4YOUH7SzIIlMqDja+ocDtiCA72UthBH/vF+3ZtlMr2rN/wIw==}
+
+  '@fontsource-variable/red-hat-text@5.1.1':
+    resolution: {integrity: sha512-11t80Z48Zo26oRLqCwJRfZfqw7PMYJ9ibZGKAuuH9A2dkATR2qOVCa0fAq7zp2LBlyQXgygaBwxGph/GwQP19Q==}
+
+  '@fontsource/manrope@5.1.1':
+    resolution: {integrity: sha512-5Ry4+6hRxdE59aTUGu5jH4nFsILKyIdqIs7AtCGMfkOwGRxph/fQyOmE9CdU+4vQgaJBopB6XtL6CRg55Ew8Ag==}
 
   '@hotwired/stimulus@3.2.2':
     resolution: {integrity: sha512-eGeIqNOQpXoPAIP7tC1+1Yc1yl1xnwYqg+3mzqxyrbE5pg5YFBZcA6YoTiByJB6DKAEsiWtl6tjTJS4IYtbB7A==}
@@ -2237,6 +2255,12 @@ snapshots:
 
   '@esbuild/win32-x64@0.24.2':
     optional: true
+
+  '@fontsource-variable/inter@5.1.1': {}
+
+  '@fontsource-variable/red-hat-text@5.1.1': {}
+
+  '@fontsource/manrope@5.1.1': {}
 
   '@hotwired/stimulus@3.2.2': {}
 

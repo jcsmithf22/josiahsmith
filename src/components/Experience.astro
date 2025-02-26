@@ -1,0 +1,103 @@
+---
+import python from "../assets/experience/python.png";
+import codesys from "../assets/experience/codesys.png";
+import pytorch from "../assets/experience/pytorch.png";
+import { Image } from "astro:assets";
+import Icon from "./experience/Icon.astro";
+---
+
+<section class="effect-003 w-full">
+  <div class="effect-container p-4 py-12 sm:p-6 lg:grid lg:p-12">
+    <ul class="flex flex-col border-b border-b-zinc-300">
+      <li
+        class="relative flex-[1_1_45px] border-t border-t-zinc-300 first:flex-[1_1_122px]"
+      >
+        <span>Curt G. Joa</span>
+        <span
+          class="absolute top-1/2 right-6 flex -translate-y-1/2 gap-4 overflow-hidden"
+        >
+          <Icon src={python} />
+          <Icon src={codesys} />
+          <Icon src={pytorch} />
+        </span>
+      </li>
+      <li class="relative flex-[1_1_45px] border-t border-t-zinc-300">
+        <span>EDP Renewables</span>
+        <span
+          class="absolute top-1/2 right-6 flex -translate-y-1/2 gap-4 overflow-hidden"
+        >
+          <Icon src={python} />
+          <Icon src={codesys} />
+          <Icon src={pytorch} />
+        </span>
+      </li>
+      <li class="relative flex-[1_1_45px] border-t border-t-zinc-300">
+        <span>Milwaukee School of Engineering</span>
+        <span
+          class="absolute top-1/2 right-6 flex -translate-y-1/2 gap-4 overflow-hidden"
+        >
+          <Icon src={python} />
+          <Icon src={codesys} />
+          <Icon src={pytorch} />
+        </span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+
+  function init() {
+    const root = document.querySelector<HTMLDivElement>(".effect-003 ul")!;
+    const items = root.querySelectorAll<HTMLUListElement>("li");
+    let lastIndexEntered = 0;
+
+    const tls: Array<gsap.core.Timeline> = [];
+
+    // For each row...
+    items.forEach((item, index) => {
+      // Get the media of the row
+      const medias = item.querySelectorAll<HTMLImageElement>("img");
+
+      // Create a timeline() and set it to paused, except for the first row
+      const tl = gsap.timeline({ paused: index !== 0 ? true : false });
+      tl.to(medias, {
+        y: 0, // Center the media
+        stagger: {
+          each: 0.04, // Each media will appear every 0.04s
+          from: "random", // In a random order
+        },
+        duration: 0.4,
+        ease: "power4.out",
+      });
+
+      tls.push(tl); // Add each timeline to an array
+
+      item.addEventListener("mouseenter", () => {
+        // Reverse the media of the previously active row
+        tls[lastIndexEntered].timeScale(3).reverse();
+        // Update the index of the last hovered row
+        lastIndexEntered = index;
+
+        // Play the timeline of the new active row's media
+        tls[index].timeScale(1).play();
+
+        gsap.to(items, {
+          flex: "1 1 45px",
+          duration: 0.2,
+          ease: "power2.inOut",
+        });
+        gsap.to(item, {
+          flex: "1 1 122px",
+          duration: 0.2,
+          ease: "power2.inOut",
+        });
+      });
+    });
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    init();
+  });
+</script>

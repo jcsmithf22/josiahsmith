@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: "Inter Variable", "sans-serif";
+}
+
 html.lenis,
 html.lenis body {
   height: auto;
@@ -21,9 +25,9 @@ html.lenis body {
   font-kerning: none;
 
   .paragraph .mask {
-    margin: -0.14em 0;
+    margin: -0.15em 0;
     overflow: hidden;
-    padding: 0.14em 0;
+    padding: 0.15em 0;
     display: inline-block;
   }
 

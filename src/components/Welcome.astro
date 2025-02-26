@@ -28,9 +28,9 @@ import me from "../assets/no_eyebags.png";
         <p>jcsmithf22@gmail.com</p>
       </div>
     </div>
-    <div class="col-span-2 flex flex-col justify-end">
+    <div class="@container col-span-2 flex flex-col justify-end">
       <h1
-        class="paragraph text-4xl/9 font-light tracking-wide text-black opacity-0 sm:text-5xl/11 md:text-5xl/12 lg:text-4xl/9 xl:text-6xl/14"
+        class="paragraph text-[clamp(2.25rem,6cqw,3.4rem)] leading-[1.025] tracking-wide text-black opacity-0"
       >
         Hey there! I'm a Research and Development Engineer at Curt G. Joa in
         Sheboygan Falls, Wisconsin. Proficient in programming and mechanical
@@ -79,6 +79,9 @@ import me from "../assets/no_eyebags.png";
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    init();
+    document.fonts.ready.then(() => {
+      // Once the font is loaded, let the fun begin!
+      init();
+    });
   });
 </script>
