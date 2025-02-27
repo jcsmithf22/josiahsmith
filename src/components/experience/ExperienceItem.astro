@@ -1,0 +1,26 @@
+---
+export interface Props {
+  title: string;
+  date: string;
+  role?: string;
+}
+
+const { title, date, role } = Astro.props;
+---
+
+<li
+  class="relative items-center overflow-hidden border-t border-t-zinc-300 py-6 xl:flex xl:flex-[1_1_45px] xl:py-0 xl:first:flex-[1_1_122px]"
+>
+  <div
+    class="flex w-full max-w-[800px] grid-cols-[130px_1fr_1fr] items-center gap-6 xl:grid"
+  >
+    <span class="block rounded-full bg-zinc-200 px-3 py-1 text-center text-sm"
+      >{date}</span
+    >
+    <span class="block">{title}</span>
+    {role && <span class="block text-zinc-500">{role}</span>}
+  </div>
+  <span class="top-[15px] right-6 flex gap-4 pt-6 xl:absolute xl:pt-0">
+    <slot />
+  </span>
+</li>

@@ -2,45 +2,66 @@
 import python from "../assets/experience/python.png";
 import codesys from "../assets/experience/codesys.png";
 import pytorch from "../assets/experience/pytorch.png";
-import { Image } from "astro:assets";
-import Icon from "./experience/Icon.astro";
+import databricks from "../assets/experience/databricks.png";
+import powerbi from "../assets/experience/powerbi.png";
+import solidedge from "../assets/experience/solidedge.png";
+import sql from "../assets/experience/sql.png";
+import rockwell from "../assets/experience/rockwell.svg";
+import adf from "../assets/experience/adf.png";
+import matlab from "../assets/experience/matlab.png";
+import solidworks from "../assets/experience/solidworks-2.png";
+import react from "../assets/experience/react.png";
+import astro from "../assets/experience/astro.png";
+import typescript from "../assets/experience/typescript.png";
+import rails from "../assets/experience/rails.png";
+import laravel from "../assets/experience/laravel.png";
+import go from "../assets/experience/go.png";
+
+import Technology from "./experience/Technology.astro";
+import ExperienceItem from "./experience/ExperienceItem.astro";
 ---
 
 <section class="effect-003 w-full">
   <div class="effect-container p-4 py-12 sm:p-6 lg:grid lg:p-12">
     <ul class="flex flex-col border-b border-b-zinc-300">
-      <li
-        class="relative flex-[1_1_45px] border-t border-t-zinc-300 first:flex-[1_1_122px]"
+      <ExperienceItem
+        role="R&D Engineering Specialist"
+        date="2024 - present"
+        title="Curt G. Joa"
       >
-        <span>Curt G. Joa</span>
-        <span
-          class="absolute top-1/2 right-6 flex -translate-y-1/2 gap-4 overflow-hidden"
-        >
-          <Icon src={python} />
-          <Icon src={codesys} />
-          <Icon src={pytorch} />
-        </span>
-      </li>
-      <li class="relative flex-[1_1_45px] border-t border-t-zinc-300">
-        <span>EDP Renewables</span>
-        <span
-          class="absolute top-1/2 right-6 flex -translate-y-1/2 gap-4 overflow-hidden"
-        >
-          <Icon src={python} />
-          <Icon src={codesys} />
-          <Icon src={pytorch} />
-        </span>
-      </li>
-      <li class="relative flex-[1_1_45px] border-t border-t-zinc-300">
-        <span>Milwaukee School of Engineering</span>
-        <span
-          class="absolute top-1/2 right-6 flex -translate-y-1/2 gap-4 overflow-hidden"
-        >
-          <Icon src={python} />
-          <Icon src={codesys} />
-          <Icon src={pytorch} />
-        </span>
-      </li>
+        <Technology src={python} />
+        <Technology src={codesys} />
+        <Technology src={rockwell} />
+        <Technology src={solidedge} />
+        <Technology src={pytorch} />
+      </ExperienceItem>
+      <ExperienceItem date="2020 - present" title="Freelancing">
+        <Technology src={typescript} />
+        <Technology src={react} />
+        <Technology src={astro} />
+        <Technology src={rails} />
+        <Technology src={laravel} />
+        <Technology src={go} />
+      </ExperienceItem>
+      <ExperienceItem
+        role="Performance Analyst"
+        date="2022 - 2024"
+        title="EDP Renewables"
+      >
+        <Technology src={python} />
+        <Technology src={databricks} />
+        <Technology src={adf} />
+        <Technology src={powerbi} />
+        <Technology src={sql} />
+      </ExperienceItem>
+      <ExperienceItem
+        role="BS in Mechanical Engineering"
+        date="2020 - 2024"
+        title="Milwaukee School of Engineering"
+      >
+        <Technology src={matlab} />
+        <Technology src={solidworks} />
+      </ExperienceItem>
     </ul>
   </div>
 </section>
@@ -48,9 +69,10 @@ import Icon from "./experience/Icon.astro";
 <script>
   import { gsap } from "gsap";
 
-  function init() {
-    const root = document.querySelector<HTMLDivElement>(".effect-003 ul")!;
-    const items = root.querySelectorAll<HTMLUListElement>("li");
+  const root = document.querySelector<HTMLDivElement>(".effect-003 ul")!;
+  const items = root.querySelectorAll<HTMLUListElement>("li");
+
+  function init(signal: AbortSignal) {
     let lastIndexEntered = 0;
 
     const tls: Array<gsap.core.Timeline> = [];
@@ -74,30 +96,54 @@ import Icon from "./experience/Icon.astro";
 
       tls.push(tl); // Add each timeline to an array
 
-      item.addEventListener("mouseenter", () => {
-        // Reverse the media of the previously active row
-        tls[lastIndexEntered].timeScale(3).reverse();
-        // Update the index of the last hovered row
-        lastIndexEntered = index;
+      item.addEventListener(
+        "mouseenter",
+        () => {
+          // Reverse the media of the previously active row
+          tls[lastIndexEntered].timeScale(3).reverse();
+          // Update the index of the last hovered row
+          lastIndexEntered = index;
 
-        // Play the timeline of the new active row's media
-        tls[index].timeScale(1).play();
+          // Play the timeline of the new active row's media
+          tls[index].timeScale(1).play();
 
-        gsap.to(items, {
-          flex: "1 1 45px",
-          duration: 0.2,
-          ease: "power2.inOut",
-        });
-        gsap.to(item, {
-          flex: "1 1 122px",
-          duration: 0.2,
-          ease: "power2.inOut",
-        });
-      });
+          gsap.to(items, {
+            flex: "1 1 45px",
+            duration: 0.2,
+            ease: "power2.inOut",
+          });
+          gsap.to(item, {
+            flex: "1 1 122px",
+            duration: 0.2,
+            ease: "power2.inOut",
+          });
+        },
+        { signal },
+      );
     });
   }
 
   window.addEventListener("DOMContentLoaded", () => {
-    init();
+    // create
+    let mm = gsap.matchMedia();
+
+    // add a media query. When it matches, the associated function will run
+    mm.add("(width >= 80rem )", () => {
+      const controller = new AbortController();
+
+      const { signal } = controller;
+      init(signal);
+
+      return () => {
+        controller.abort();
+        gsap.set(items, { clearProps: "all" });
+        items.forEach((item) => {
+          const medias = item.querySelectorAll<HTMLImageElement>("img");
+          gsap.set(medias, { clearProps: "all" });
+        });
+        // optional
+        // custom cleanup code here (runs when it STOPS matching)
+      };
+    });
   });
 </script>
