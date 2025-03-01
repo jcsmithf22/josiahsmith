@@ -32,7 +32,7 @@
 <script>
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
-  import { wrapWordsInSpan } from "../js/lib/utils";
+  import { splitText } from "../js/lib/splittext";
 
   gsap.registerPlugin(ScrollTrigger);
 
@@ -49,23 +49,44 @@
     //   pin: container, // Progresses with the scroll
     // });
 
-    const words = wrapWordsInSpan(paragraph);
+    // const words = wrapWordsInSpan(paragraph);
+
+    const { words } = splitText(paragraph, {
+      level: "words",
+      lines: false,
+      wordClass: "word",
+    });
 
     // We will have an array of lines that contain an array of words
     // const lines = wordsPerLine(words);
-
-    gsap.to(words, {
-      x: 0, // Animate the 'x' property to 0
-      stagger: 0.02, // Stagger the animation of each element by 0.02 seconds
-      ease: "power4.inOut", // Use a power4 easing function for smooth start and end
-      scrollTrigger: {
-        trigger: pin, // We listen to pinHeight position
-        start: "top 80px", // Start the animation when the top of the trigger hits the top of the viewport
-        end: "bottom bottom", // End the animation when the bottom of the trigger hits the bottom of the viewport
-        scrub: true, // Smoothly scrub the animation based on scroll position
-        pin: container, // Let's pin our container while all the words animate
-      },
-    });
+    gsap
+      .timeline({
+        defaults: {
+          ease: "power4.inOut",
+        },
+        scrollTrigger: {
+          trigger: pin, // We listen to pinHeight position
+          start: "top 80px", // Start the animation when the top of the trigger hits the top of the viewport
+          end: "bottom bottom", // End the animation when the bottom of the trigger hits the bottom of the viewport
+          scrub: true, // Smoothly scrub the animation based on scroll position
+          pin: container, // Let's pin our container while all the words animate
+        },
+      })
+      .to(words, {
+        x: 0, // Animate the 'x' property to 0
+        stagger: 0.02, // Stagger the animation of each element by 0.02 seconds
+      });
+    // .fromTo(
+    //   chars,
+    //   {
+    //     y: 100,
+    //   },
+    //   {
+    //     y: 0, // Animate the 'x' property to 0
+    //     stagger: 0.01, // Stagger the animation of each element by 0.02 seconds
+    //   },
+    //   "<",
+    // );
 
     // lines.forEach((line) => {
     //   gsap.to(line, {
@@ -83,6 +104,9 @@
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    init();
+    document.fonts.ready.then(() => {
+      // Once the font is loaded, let the fun begin!
+      init();
+    });
   });
 </script>

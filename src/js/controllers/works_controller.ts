@@ -3,6 +3,7 @@ import { gsap } from "gsap";
 
 export default class extends Controller {
   static targets = ["info", "overlay", "content"];
+
   private setY!: gsap.QuickToFunc;
   private setX!: gsap.QuickToFunc;
   private overlayAnimationDuration = 0.4;
@@ -45,6 +46,8 @@ export default class extends Controller {
   }
 
   leave() {
+    gsap.killTweensOf(this.overlayTarget, "scale");
+
     gsap.to(this.contentTarget, {
       scale: 1,
     });
@@ -56,7 +59,7 @@ export default class extends Controller {
 
     gsap.to(this.overlayTarget, {
       scale: 0,
-      duration: this.overlayAnimationDuration,
+      duration: 0.3,
       ease: "power1",
     });
 
